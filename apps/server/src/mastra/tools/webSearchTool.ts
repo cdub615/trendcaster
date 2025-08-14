@@ -1,7 +1,7 @@
-import { createTool } from '@mastra/core/tools';
-import { z } from 'zod';
-import Exa from 'exa-js';
+import {createTool} from '@mastra/core/tools';
 import 'dotenv/config';
+import Exa from 'exa-js';
+import {z} from 'zod';
 
 // Initialize Exa client
 const exa = new Exa(process.env.EXA_API_KEY);

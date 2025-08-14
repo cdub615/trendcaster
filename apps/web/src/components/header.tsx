@@ -1,14 +1,18 @@
 "use client";
+import {authClient} from "@/lib/auth-client";
 import Link from "next/link";
 
-import { ModeToggle } from "./mode-toggle";
+import {ModeToggle} from "./mode-toggle";
 import UserMenu from "./user-menu";
 
 export default function Header() {
+  const { data: session } = authClient.useSession();
+
   const links = [
     { to: "/", label: "Home" },
-      { to: "/dashboard", label: "Dashboard" },
-    { to: "/ai", label: "AI Chat" },
+    { to: "/dashboard", label: "Dashboard" },
+    // Only show AI link if user is authenticated
+    ...(session ? [{ to: "/ai", label: "AI Chat" }] : []),
   ];
 
   return (

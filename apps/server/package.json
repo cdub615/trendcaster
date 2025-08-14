@@ -6,6 +6,7 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
+    "playground": "mastra dev",
     "db:local": "turso dev --db-file local.db",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
