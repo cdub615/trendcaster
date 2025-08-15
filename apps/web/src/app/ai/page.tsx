@@ -76,6 +76,34 @@ export default function AIPage() {
     enabled: !!currentQuery, // Enable when we have a query
   });
 
+  // TODO: This was just an example, we need to implement this in a better way
+  // I believe in the stream from the workflow we get an event with a status of suspended, and we can use that to resume the workflow
+  const resumeWorkflow = () => {
+    const runId = "your-workflow-run-id";
+    const newUserData = {input: "Data from the user form"};
+
+    // Make the API call to your Mastra server
+    fetch(`https://your-mastra-server-url.com/workflows/runs/${runId}/resume`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        // You may also need an API key or auth token here
+      },
+      body: JSON.stringify({
+        step: "step1", // The ID of the suspended step
+        resumeData: newUserData,
+      }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log("Workflow resumed successfully:", data);
+        // Update your web app UI based on the response
+      })
+      .catch(error => {
+        console.error("Error resuming workflow:", error);
+      });
+  }
+
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [researchResults]);

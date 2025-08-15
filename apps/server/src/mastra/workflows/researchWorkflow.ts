@@ -2,39 +2,39 @@ import {createStep, createWorkflow} from '@mastra/core/workflows';
 import {z} from 'zod';
 
 // Step 1: Get user query
-// const getUserQueryStep = createStep({
-//   id: 'get-user-query',
-//   inputSchema: z.object({}),
-//   outputSchema: z.object({
-//     query: z.string(),
-//   }),
-//   resumeSchema: z.object({
-//     query: z.string(),
-//   }),
-//   suspendSchema: z.object({
-//     message: z.object({
-//       query: z.string(),
-//     }),
-//   }),
-//   execute: async ({ resumeData, suspend }) => {
-//     if (resumeData) {
-//       return {
-//         ...resumeData,
-//         query: resumeData.query || '',
-//       };
-//     }
+const getUserQueryStep = createStep({
+  id: 'get-user-query',
+  inputSchema: z.object({}),
+  outputSchema: z.object({
+    query: z.string(),
+  }),
+  resumeSchema: z.object({
+    query: z.string(),
+  }),
+  suspendSchema: z.object({
+    message: z.object({
+      query: z.string(),
+    }),
+  }),
+  execute: async ({ resumeData, suspend, writer }) => {
+    if (resumeData) {
+      return {
+        ...resumeData,
+        query: resumeData.query || '',
+      };
+    }
 
-//     await suspend({
-//       message: {
-//         query: 'What would you like to research?',
-//       },
-//     });
+    await suspend({
+      message: {
+        query: 'What would you like to research?',
+      },
+    });
 
-//     return {
-//       query: '',
-//     };
-//   },
-// });
+    return {
+      query: '',
+    };
+  },
+});
 
 // Step 2: Research
 const researchStep = createStep({
